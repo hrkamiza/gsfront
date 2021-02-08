@@ -1,0 +1,34 @@
+<div class="list row">
+    <div class="col-md-6">
+      <h4>Compras</h4>
+      <ul class="list-group">
+        <li
+          class="list-group-item"
+          *ngFor="let compra of compras; let i = index"
+          [class.active]="i == currentIndex"
+          (click)="setCurrentCompra(compra, i)"
+        >
+        <Label>Fornecedor: </Label> {{ compra.fornecedor }} <label>Total R$: </label>{{ compra.total}}
+        </li>
+      </ul>
+     
+    </div>
+    <div class="col-md-6">
+      <div *ngIf="currentCompra">
+        <h4>Compra</h4>
+        <div>
+          <label><strong>Fornecedor:</strong></label> {{ currentCompra.fornecedor }}
+        </div>
+        <div>
+          <label><strong>Total R$:</strong></label>{{currentCompra.total}}
+  
+        </div>
+      </div>
+  
+      <div *ngIf="!currentCompra">
+        <br />
+        <p>Selecione um Item</p>
+      </div>
+    </div>
+  </div>
+  
