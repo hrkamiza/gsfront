@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CompraService } from 'src/app/services/compra.service'
+import { Compras } from '../../models/compras.model';
 
 @Component({
   selector: 'app-compra-list',
@@ -8,10 +9,11 @@ import {CompraService } from 'src/app/services/compra.service'
 })
 export class CompraListComponent implements OnInit {
 
-  compras: any;
+  compras?: Compras[];
   currentCompra = null;
   currentIndex = -1;
   fornecedor = '';
+  total='';
 
   constructor(private compraService: CompraService) { }
 
@@ -22,9 +24,9 @@ export class CompraListComponent implements OnInit {
   readCompras(): void {
     this.compraService.readAll()
       .subscribe(
-        compras => {
-          this.compras = compras;
-          console.log(compras);
+        data => {
+          this.compras = data;
+          console.log(data);
         },
         error => {
           console.log(error);
@@ -34,6 +36,16 @@ export class CompraListComponent implements OnInit {
   setCurrentCompra(compra, index): void {
     this.currentCompra = compra;
     this.currentIndex = index;
+  }
+  loadItens(compra, index): void {
+    this.compraService.read(compra.id).subscribe(
+      compra => {
+        this.currentCompra = compra;
+        console.log(compra);
+      },
+      error => {
+        console.log(error);
+      })
   }
 
 }

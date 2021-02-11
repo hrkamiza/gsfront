@@ -1,28 +1,49 @@
 <div class="list row">
     <div class="col-md-6">
       <h4>Compras</h4>
-      <ul class="list-group">
-        <li
-          class="list-group-item"
-          *ngFor="let compra of compras; let i = index"
+      <table class="table table-sm">
+        <thead class="thead-dark" >
+            <tr>
+                <th>Fornecedor</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let compra of compras; let i = index"
           [class.active]="i == currentIndex"
-          (click)="setCurrentCompra(compra, i)"
-        >
-        <Label>Fornecedor: </Label> {{ compra.fornecedor }} <label>Total R$: </label>{{ compra.total}}
-        </li>
-      </ul>
-     
+          (click)="loadItens(compra, i)">
+            <td>{{compra.fornecedor}}</td>
+            <td>R$:{{compra.total}}</td>
+          </tr>
+      </tbody>
+  </table>
+    <p>Total:R$</p>
     </div>
+    
     <div class="col-md-6">
       <div *ngIf="currentCompra">
-        <h4>Compra</h4>
+        <h5>Detalhe</h5>
         <div>
           <label><strong>Fornecedor:</strong></label> {{ currentCompra.fornecedor }}
         </div>
-        <div>
-          <label><strong>Total R$:</strong></label>{{currentCompra.total}}
-  
-        </div>
+        <table class="table table-striped">
+          <thead >
+              <tr>
+                  <th>Produto</th>
+                  <th>Quantidade</th>
+                  <th>Valor</th>
+                  <th>Total</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of currentCompra.itens">
+                  <td>{{item.produto.nome}}</td>
+                  <td>{{item.quantidade}}</td>
+                  <td>R$:{{item.valorUnitario}}</td>
+                  <td>R$:{{item.total}}</td>
+              </tr>
+          </tbody>
+      </table>
       </div>
   
       <div *ngIf="!currentCompra">
@@ -30,5 +51,6 @@
         <p>Selecione um Item</p>
       </div>
     </div>
+
   </div>
   

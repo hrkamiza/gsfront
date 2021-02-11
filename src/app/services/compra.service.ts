@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Compras }  from '../models/compras.model';
+import { Compra } from '../models/compra.model';
 
 const baseURL = 'https://hrkami-gs.herokuapp.com/compras';
 
@@ -11,12 +13,12 @@ export class CompraService {
 
   constructor(private httpClient: HttpClient) { }
 
-  readAll(): Observable<any> {
-    return this.httpClient.get(baseURL);
+  readAll(): Observable<Compras []> {
+    return this.httpClient.get<Compras []>(baseURL);
   }
 
-  read(id): Observable<any> {
-    return this.httpClient.get(`${baseURL}/${id}`);
+  read(id): Observable<Compra []> {
+    return this.httpClient.get<Compra []>(`${baseURL}/${id}`);
   }
 
   create(data): Observable<any> {
